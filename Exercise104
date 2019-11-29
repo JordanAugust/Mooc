@@ -1,0 +1,65 @@
+package MOOC.Week6;
+
+import java.util.Arrays;
+
+public class Sorting {
+
+    public static void main(String[] args) {
+        int[] array = {1, 3, 7, 6, 4, 2, 5};
+        sort(array);
+    }
+
+    private static int smallest(int[] array) {
+        int smallest = array[0];
+        for (int i = 0; i < array.length - 1; i++) {
+
+            if (smallest > array[i + 1]) {
+                smallest = array[i + 1];
+            }
+        }
+        return smallest;
+    }
+
+    private static int indexOfTheSmallest(int[] array) {
+        int smallestIndex = 0;
+        for (int i = 0; i < array.length; i++) {
+            if (array[i] == smallest(array)) {
+                smallestIndex = i;
+                break;
+            }
+        }
+        return smallestIndex;
+    }
+
+    private static int indexOfTheSmallestStartingFrom(int[] array, int index) {
+        int start = array[index];
+        int indexTracker = 0;
+        for (int i = index; i < array.length; i++) {
+            if (start > array[i]) {
+                start = array[i];
+                indexTracker = i;
+            }
+        }
+        if (indexTracker == 0) {
+            indexTracker = index;
+        }
+        return indexTracker;
+    }
+
+    private static void swap(int[] array, int index1, int index2) {
+        int temp;
+        temp = array[index1];
+        array[index1] = array[index2];
+        array[index2] = temp;
+    }
+
+    private static void sort(int[] array) {
+        for (int i = 0; i < array.length; i++) {
+            System.out.println(Arrays.toString(array));
+            int smallest = indexOfTheSmallestStartingFrom(array, i);
+            if (array[smallest] < array[i]) {
+                swap(array, smallest, i);
+            }
+        }
+    }
+}
